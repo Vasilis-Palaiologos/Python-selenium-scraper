@@ -29,8 +29,12 @@ def findVesselInfo(search_bar, vessel_name):
                                          'div.mtapp4 > div.simplebar-wrapper > div.simplebar-mask > div > div > div > '
                                          'div > li:nth-child(1) > a').click()
     sleep(5)
+    # FIND ALL TABLE ROWS (4 TABLES AT THE TIME OF IMPLEMENTATION)
     table_rows = driver.find_elements(By.TAG_NAME, 'tr')
+
+    # ITERATE THROUGH THE ROWS TO FIND THE RELEVANT DATA
     for row in table_rows:
+        # SOME ROWS LACK THE "th" ELEMENT
         try:
             if row.find_element(By.TAG_NAME, 'th').text == 'IMO':
                 imo = row.find_element(By.TAG_NAME, 'td').text
@@ -42,9 +46,9 @@ def findVesselInfo(search_bar, vessel_name):
                 course = row.find_element(By.TAG_NAME, 'td').text
         except NoSuchElementException:
             continue
+        # RETURN AFTER ALL RELEVANT DATA IS COLLECTED
         if imo and mmsi and speed and course:
-            break
-    return {'name': vessel_name, 'imo': imo, 'mmsi': mmsi, 'speed': speed, 'course': course}
+            return {'name': vessel_name, 'imo': imo, 'mmsi': mmsi, 'speed': speed, 'course': course}
 
 
 def getSearchBar(driver):
