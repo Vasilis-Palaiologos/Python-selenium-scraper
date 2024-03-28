@@ -66,6 +66,8 @@ if __name__ == '__main__':
     driver.get("https://www.marinetraffic.com")
 
     sleep(5)
+    # ACCEPT THE COOKIES
+    driver.find_element(By.CLASS_NAME, 'css-1yp8yiu').click()
     driver.find_element(By.ID, 'login').click()
     sleep(2)
 
